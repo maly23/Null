@@ -24,7 +24,7 @@ if ! cd $1; then
 fi
 Base=$(basename $2)
 #Checks if file exists and prompts removal.
-check="ls ${1} | grep ${Base}"
+check="ls ${1}" | grep "${Base}"
 while $check; do
  echo "${yf}The file already exists. Do you want to replace? Y/N${reset}"
  echo -n "$ "; read cinput
