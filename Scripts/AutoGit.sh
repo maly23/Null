@@ -52,13 +52,13 @@ while true; do
  elif [[ $commit == N ]]; then
   exit 1
  else
-  echo "Invalid response."
+  echo "${rf}Invalid response.${reset}"
  fi
 done
 clear
 git commit -m "commit"
 echo ""
-echo "Do you want to push? Y/N"
+echo "${yf}Do you want to push? Y/N${reset}"
 fpush () {
 echo -n "$ "; read push
 }
@@ -71,7 +71,7 @@ while true; do
  elif [[ $push == N ]]; then
   exit
  else
-  echo "Invalid response."
+  echo "${rf}Invalid response.${reset}"
  fi
 done
 clear
@@ -87,32 +87,32 @@ func () {
 }
 
 clear
-echo "Enter the number of remote Git profile or 0 to create one"
+echo "${wf}Enter the number of remote Git profile or 0 to create one.${reset}"
 while true; do
  func
  echo -n "$ "; read rinput
  if [[ $rinput -eq 0 ]] && [[ $((rinput)) = $rinput ]]; then
-  echo -n "The wanted remote name: "; read rname
+  echo -n "${wf}The wanted remote name: ${reset}"; read rname
   echo ""
-  echo -n "Link to Git repository: "; read link
+  echo -n "${wf}Link to Git repository: ${reset}"; read link
   git remote add $rname $link
 
   echo ""
-  echo "Successfully added!"
+  echo "${yf}Successfully added!${reset}"
  elif [[ $rinput -le $i-1 ]] && [[ $((rinput)) = $rinput ]] && [[ $rinput -gt -1 ]]; then
   break
  else
   echo ""
-  echo "Enter a valid number."
+  echo "${rf}Enter a valid number.${reset}"
 fi
 done
 
 clear
-echo "You have choosen ${list[$rinput]}"
+echo "${wf}You have choosen ${list[$rinput]}${reset}"
 
 echo ""
-echo "Branch name: "
+echo "${wf}Branch name: ${reset}"
 echo -n "$ "; read branch
 echo ""
 git push "${list[$rinput]}" $branch
-echo "Successfully pushed to ${list[$rinput]} $branch"
+echo "${wf}Done!${reset}"
