@@ -26,8 +26,8 @@ Base=$(basename $2)
 check=ls $1 | grep $Base
 if $check; then
  echo "${yf}The file already exists. Do you want to replace? Y/N${reset}"
+ replace
 fi
-
 git add $Base
 echo ""
 echo "Do you want to commit? Y/N"
