@@ -19,9 +19,9 @@ if ! cd $1; then
  exit 1
 fi
 Base=$(basename $2)
-
+FP=$1$Base
 #Checks if file exists and prompts removal.
-while [ -f $1$Base ]; do
+while [ -f $FP ]; do
  echo "${yf}The file already exists. Do you want to replace? Y/N${reset}"
  echo -n "$ "; read cinput
  shopt -s nocasematch
