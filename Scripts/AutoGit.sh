@@ -4,12 +4,13 @@
 
 #Usage: ./AutoGit "Git path" "File/folder to commit path"
 
-Wbg=$(tput setaf 7)
-Reset=$(tput sgr0)
+wf=$(tput setaf 7)
+yf=$(tput setaf 3)
+reset=$(tput sgr0)
 Path=$1
 File=$2
 if [[ ! $1 ]] || [[ ! $2 ]]; then
-  echo "${Wbg}Usage: ./AutoGit \"Git path\" \"File/folder to commit or push path\"${Reset}"
+  echo "${wf}Usage: ./AutoGit \"Git path\" \"File/folder to commit or push path\"${reset}"
   exit 1
 fi
 
@@ -21,6 +22,12 @@ if ! cd $1; then
  exit 1
 fi
 Base=$(basename $2)
+#Checks if file exists and prompts removal.
+check=ls $1 | grep $Base
+if $check; then
+ echo "${yf}The file already exists. Do you want to replace? Y/N${reset}"
+fi
+
 git add $Base
 echo ""
 echo "Do you want to commit? Y/N"
