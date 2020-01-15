@@ -14,14 +14,10 @@ if [[ ! $1 ]] || [[ ! $2 ]]; then
   echo "${wf}Usage: ./AutoGit \"Git path\" \"File/folder to commit or push path\"${reset}"
   exit 1
 fi
-
-if ! cd $1; then
- exit 1
-fi
 Base=$(basename $2)
-FP=$1$Base
+FP=$(readlink -f $2)
 #Checks if file exists and prompts removal.
-while [ -f $FP ]; do
+while [ -f $1$Base ]; do
  echo "${yf}The file already exists. Do you want to replace? Y/N${reset}"
  echo -n "$ "; read cinput
  shopt -s nocasematch
@@ -35,7 +31,10 @@ while [ -f $FP ]; do
   echo "${rf}Invalid input.${reset}"
  fi
 done
-if ! cp $2 $1; then
+if ! cp $FP $1; then
+ exit
+fi
+if ! cd $1; then
  exit
 fi
 git add $Base
@@ -115,5 +114,4 @@ echo "Branch name: "
 echo -n "$ "; read branch
 echo ""
 git push "${list[$rinput]}" $branch
-clear
 echo "Successfully pushed to ${list[$rinput]} $branch"
