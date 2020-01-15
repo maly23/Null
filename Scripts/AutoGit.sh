@@ -22,6 +22,7 @@ while [ -f $1$Base ]; do
  echo -n "$ "; read cinput
  shopt -s nocasematch
  if [[ $cinput == Y ]]; then
+  cd $1
   git rm $Base
   echo "${yf}Successfully removed!${reset}"
   break
