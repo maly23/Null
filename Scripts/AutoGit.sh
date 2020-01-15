@@ -21,8 +21,7 @@ fi
 Base=$(basename $2)
 
 #Checks if file exists and prompts removal.
-fpath=$1$Base
-while [ -e $fpath ]; do
+while [ -f $1$Base ]; do
  echo "${yf}The file already exists. Do you want to replace? Y/N${reset}"
  echo -n "$ "; read cinput
  shopt -s nocasematch
