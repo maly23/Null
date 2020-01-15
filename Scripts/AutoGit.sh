@@ -5,6 +5,7 @@
 #Usage: ./AutoGit "Git path" "File/folder to commit path"
 
 wf=$(tput setaf 7)
+rf=$(tput setaf 1)
 yf=$(tput setaf 3)
 reset=$(tput sgr0)
 Path=$1
@@ -23,11 +24,22 @@ if ! cd $1; then
 fi
 Base=$(basename $2)
 #Checks if file exists and prompts removal.
-check=ls $1 | grep $Base
-if $check; then
+check="ls ${1} | grep ${Base}"
+while $check; do
  echo "${yf}The file already exists. Do you want to replace? Y/N${reset}"
- replace
-fi
+ echo -n "$ "; read cinput
+ shopt -s nocasematch
+ if [[ $cinput == Y ]]; then
+  git rm $Base
+  git commit -m "commit"
+  echo "${yf}Successfully removed!${reset}"
+  break
+ elif [[ $cinput == N ]]; then
+  exit 1
+ else
+  echo "${rf}Invalid input.${reset}"
+ fi
+done
 git add $Base
 echo ""
 echo "Do you want to commit? Y/N"
