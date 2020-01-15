@@ -4,11 +4,12 @@
 
 #Usage: ./AutoGit "Git path" "File/folder to commit path"
 
+Wbg=$(tput setaf 7)
+Reset=$(tput sgr0)
 Path=$1
 File=$2
-Base=$(basename $2)
 if [[ ! $1 ]] || [[ ! $2 ]]; then
-  echo "Usage: ./AutoGit \"Git path\" \"File/folder to commit or push path"
+  echo "${Wbg}Usage: ./AutoGit \"Git path\" \"File/folder to commit or push path\"${Reset}"
   exit 1
 fi
 
@@ -19,6 +20,7 @@ fi
 if ! cd $1; then
  exit 1
 fi
+Base=$(basename $2)
 git add $Base
 echo ""
 echo "Do you want to commit? Y/N"
@@ -98,4 +100,3 @@ echo ""
 git push "${list[$rinput]}" $branch
 clear
 echo "Successfully pushed to ${list[$rinput]} $branch"
-
