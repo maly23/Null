@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Auto Git push & commit script written in bash.
+#Auto Git is a script written in Bash for file/directory commit, push and even branch creating.
 
 #Usage: ./AutoGit "Git path" "File/folder to commit path"
 
@@ -33,7 +33,7 @@ while [ -f $1$Base ]; do
   echo "${rf}Invalid input.${reset}"
  fi
 done
-if ! cp $FP $1; then
+if ! cp -r $FP $1; then
  exit
 fi
 if ! cd $1; then
